@@ -26,9 +26,9 @@ GENO_SETS=(
 ## LDpred2 files (no header): CHR POS SNPID A1 A2 BETA  -> cols 3 4 6
 ## SBayesRC file:            SNP A1 BETA SE (PIP BETAlast) -> cols 1 2 3
 SCORES=(
-  "PPD|PPD_adjusted_weights_hapmap3_ldpred2.txt|3|4|6"
-  "MDD|MDD_adjusted_weights_hapmap3_ldpred2.txt|3|4|6"
-  "MDD_female|MDD_female_adjusted_weights_hapmap3_ldpred2.txt|3|4|6"
+  "PPD|PPD_adjusted_weights_hapmap3plus_ldpred2.txt|3|4|6"
+  "MDD|MDD_adjusted_weights_hapmap3plus_ldpred2.txt|3|4|6"
+  "MDD_female|MDD_female_adjusted_weights_hapmap3plus_ldpred2.txt|3|4|6"
   "PPD_unique|PPD_unique_adjusted_weights_hapmap3_sbrc.txt|1|2|3"
 )
 
