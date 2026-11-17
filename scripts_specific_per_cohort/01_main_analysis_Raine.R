@@ -9,7 +9,7 @@
 ##   SEM parameter set + fit measures + vcov, and write cohort-tagged files.
 ## STEP 2 stratified analysis: fit all models, extract the UNSTANDARDIZED SEM
 ##   parameter set + fit measures + vcov, and write cohort-tagged files.
-## step 3 adjust for history of depression and investigate the intrauterine effects of consequential mediation  
+## step 3 adjust for history of depression  
 ##
 ################################################################################
 # we start with loading the cran libraries 
@@ -29,11 +29,11 @@ library(data.table)
 ## ============================================================================
 ## STEP 1 — FIT + EXTRACT (per cohort)
 ## ============================================================================
-data_MOBA_std<-fread("path to /final_dataset_Raine.csv")
-results<- "path to /results_Raine"
+data_Raine_std<-fread("path to /final_dataset_Raine.csv")
+results<- "path to/results"
 ## ---- 0. Cohort + shared settings --------------------------------------------
 cohort    <- "Raine"   
-dataset <- standardise_vars(data_genr_std, vars = c("prs_PPD_unique_c","prs_PPD_unique_m","prs_PPD_unique_f","prs_PPD_c","prs_PPD_m","prs_PPD_f","prs_MDD_c","prs_MDD_m","prs_MDD_f","prs_MDD_female_c","prs_MDD_female_m","prs_MDD_female_f","dep_6m_m","intern_3y_c","intern_9y_c","intern_14y_c"))
+dataset <- standardise_vars(data_Raine_std, vars = c("prs_PPD_unique_c","prs_PPD_unique_m","prs_PPD_unique_f","prs_PPD_c","prs_PPD_m","prs_PPD_f","prs_MDD_c","prs_MDD_m","prs_MDD_f","prs_MDD_female_c","prs_MDD_female_m","prs_MDD_female_f","dep_6m_m","intern_3y_c","intern_9y_c","intern_14y_c"))
 
 ### important note #####
 # for Raine we have only three days post partum depression assesment, I keep the post partum variable consistant to other cohorts as "dep_6m_m" but I know that is 3 days postpartum in the Riane 
@@ -170,7 +170,9 @@ for (prs_name in names(prs_sets)) {
       )
       
       fit <- tryCatch(
-        run_mediation(data = dataset, model = model_syntax),
+        run_mediation(data = dataset, model = model_syntax,missing = "fiml.x",
+                      cluster = "family_id",
+                      seed    = 123),
         error = function(e) { warning("FAILED ", tag, ": ", conditionMessage(e)); NULL }
       )
       if (is.null(fit)) next
@@ -187,6 +189,8 @@ for (prs_name in names(prs_sets)) {
 ## ---- 3. Write cohort-tagged outputs -----------------------------------------
 params_all <- do.call(rbind, params)
 fit_all    <- do.call(rbind, fit_indices)
+
+# if you get this error this is harmless"mean cluster size is 1.xxx. This means that many clusters only contain a single observation."
 
 write.csv(params_all, paste0("sem_params_",      cohort, ".csv"), row.names = FALSE)
 write.csv(fit_all,    paste0("sem_fitmeasures_", cohort, ".csv"), row.names = FALSE)
@@ -228,7 +232,9 @@ for (grp in names(sex_groups)) {
         )
         
         fit <- tryCatch(
-          run_mediation(data = dat_sex, model = model_syntax),
+          run_mediation(data = dat_sex, model = model_syntax,missing = "fiml.x",
+                        cluster = "family_id",
+                        seed    = 123),
           error = function(e) { warning("FAILED ", grp, " ", tag, ": ", conditionMessage(e)); NULL }
         )
         if (is.null(fit)) next
@@ -292,7 +298,9 @@ for (prs_name in names(prs_sets)) {
       )
       
       fit <- tryCatch(
-        run_mediation(data = dataset, model = model_syntax),
+        run_mediation(data = dataset, model = model_syntax,missing = "fiml.x",
+                      cluster = "family_id",
+                      seed    = 123),
         error = function(e) { warning("FAILED histdep ", tag, ": ", conditionMessage(e)); NULL }
       )
       if (is.null(fit)) next
