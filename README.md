@@ -126,7 +126,7 @@ Include participants who meet **all** of the following:
 
 ### Siblings
 
-Keep only one child per family. Exclude siblings at random, or with another method that suits your cohort.
+we keep siblings of each family and use cluster function to correct for it
 
 ### Variables
 
