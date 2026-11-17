@@ -29,9 +29,9 @@ You will receive an email from **SURFfilesender** with the PRS weight files. Wei
 
 | File | Phenotype | Method | Reference |
 |---|---|---|---|
-| `PPD_adjusted_weights_hapmap3_ldpred2.txt` | Postpartum depression (PPD) | LDpred2-auto | PMID:37849304 |
-| `MDD_adjusted_weights_hapmap3_ldpred2.txt` | Major depressive disorder (MDD) | LDpred2-auto | PMID:39814019 |
-| `MDD_female_adjusted_weights_hapmap3_ldpred2.txt` | MDD, females only | LDpred2-auto | PMID:40858613 |
+| `PPD_adjusted_weights_hapmap3plus_ldpred2.txt` | Postpartum depression (PPD) | LDpred2-auto | PMID:37849304 |
+| `MDD_adjusted_weights_hapmap3plus_ldpred2.txt` | Major depressive disorder (MDD) | LDpred2-auto | PMID:39814019 |
+| `MDD_female_adjusted_weights_hapmap3plus_ldpred2.txt` | MDD, females only | LDpred2-auto | PMID:40858613 |
 | `PPD_unique_adjusted_weights_hapmap3_sbrc.txt` | PPD-specific (unique) component | SBayesRC | [See this repository](https://github.com/MinaShahisavandi77/Perinatal-Depression-as-a-Distinct-Genetic-Entity) |
 
 ### File formats
@@ -114,7 +114,7 @@ Standardize all scores to **mean = 0** and **SD = 1** before running any models.
 Include participants who meet **all** of the following:
 
 1. **European ancestry**
-2. **Genotype data available for the child, mother, and father** (complete trios)
+2. **Genotype data available for the child, mother, and father** (with complete mother child duo)
 3. **At least one assessment of maternal depression:**
    - prenatal
    - postpartum, around 6 months
